@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { IDomEditor, IEditorConfig, SlateDescendant } from '@wangeditor/editor-cattle'
+import { IDomEditor, IEditorConfig, SlateDescendant } from '@wangeditor/editor'
 import { Editor, Toolbar } from '../../src/index'
 
 function Basic() {
@@ -72,7 +72,8 @@ function Basic() {
         <button onClick={printHtml}>打印 html</button>
       </div>
 
-      <div style={{ border: '1px solid #ccc', marginTop: '10px' }}>
+      {/* data-testid 用于单元测试 */}
+      <div data-testid="editor-container" style={{ border: '1px solid #ccc', marginTop: '10px' }}>
         {/* 渲染 toolbar */}
         <Toolbar
           editor={editor}

@@ -3,7 +3,7 @@
  * @author wangfupeng
  */
 
-import { Editor, Transforms, Location, Node } from 'slate'
+import { Editor, Transforms, Location, Node, Range, Point } from 'slate'
 import { IDomEditor } from '../interface'
 import { DomEditor } from '../dom-editor'
 import { getPositionByNode, getPositionBySelection } from '../../menus/helpers/position'
@@ -32,6 +32,23 @@ export const withSelection = <T extends Editor>(editor: T) => {
     }
   }
 
+  // 移动光标
+  e.move = (distance: number, reverse = false) => {
+    if (!distance) return
+    if (distance < 0) return
+
+    Transforms.move(editor, {
+      distance,
+      unit: 'character',
+      reverse,
+    })
+  }
+
+  // 反向移动光标
+  e.moveReverse = (distance: number) => {
+    e.move(distance, true)
+  }
+
   /**
    * 还原选区
    */
@@ -55,6 +72,22 @@ export const withSelection = <T extends Editor>(editor: T) => {
    */
   e.getNodePosition = (node: Node) => {
     return getPositionByNode(e, node)
+  }
+
+  /**
+   * 是否全选
+   */
+  e.isSelectedAll = () => {
+    const { selection } = e
+    if (selection == null) return false
+
+    const [start1, end1] = Range.edges(selection) // 获取当前选取的开始、结束 point
+    const [start2, end2] = Editor.edges(e, []) // 获取编辑器全部的开始、结束 point
+
+    if (Point.equals(start1, start2) && Point.equals(end1, end2)) {
+      return true
+    }
+    return false
   }
 
   return e

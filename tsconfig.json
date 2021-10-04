@@ -17,6 +17,7 @@
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
+    "jsxFactory": "jsx", /* snabbdom jsx */
     "downlevelIteration": true,
     "allowJs": true
   },
@@ -25,5 +26,5 @@
     "build",
     "__tests__"
   ],
-  "include": ["./tests/setup/index.ts"]
+  "include": ["./tests/setup/index.ts", "./shims-vue.d.ts"]
 }

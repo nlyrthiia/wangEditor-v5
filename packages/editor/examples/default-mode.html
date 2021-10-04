@@ -55,6 +55,8 @@
       console.log('on created', editor)
     }
     editorConfig.onChange = (editor) => {
+      // console.log(editor.children)
+
       const html = editor.getHtml()
       document.getElementById('editor-content-view').innerHTML = html
 
@@ -64,6 +66,9 @@
       document.getElementById('selected-length').innerHTML = selectionText.length
       // 全部文字
       document.getElementById('total-length').innerHTML = editor.getText().length
+
+      // // isSelectedAll
+      // console.log('isSelectedAll', editor.isSelectedAll())
     }
     editorConfig.onDestroyed = (editor) => {
       console.log('on destroyed', editor)

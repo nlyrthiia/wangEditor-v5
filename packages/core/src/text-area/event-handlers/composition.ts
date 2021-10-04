@@ -10,6 +10,7 @@ import TextArea from '../TextArea'
 import { hasEditableTarget } from '../helpers'
 import { IS_SAFARI, IS_CHROME, IS_FIREFOX } from '../../utils/ua'
 import { DOMNode } from '../../utils/dom'
+import { hidePlaceholder } from '../place-holder'
 
 const EDITOR_TO_TEXT: WeakMap<IDomEditor, string> = new WeakMap()
 const EDITOR_TO_START_CONTAINER: WeakMap<IDomEditor, DOMNode> = new WeakMap()
@@ -26,6 +27,9 @@ export function handleCompositionStart(e: Event, textarea: TextArea, editor: IDo
   if (!hasEditableTarget(editor, event.target)) return
 
   const { selection } = editor
+  if (selection && Range.isExpanded(selection)) {
+    Editor.deleteFragment(editor)
+  }
 
   if (selection && Range.isCollapsed(selection)) {
     // 记录下 dom text ，以便触发 maxLength 时使用
@@ -38,6 +42,9 @@ export function handleCompositionStart(e: Event, textarea: TextArea, editor: IDo
     EDITOR_TO_START_CONTAINER.set(editor, startContainer)
   }
   textarea.isComposing = true
+
+  // 隐藏 placeholder
+  hidePlaceholder(textarea, editor)
 }
 
 /**
@@ -66,11 +73,6 @@ export function handleCompositionEnd(e: Event, textarea: TextArea, editor: IDomE
 
   const { selection } = editor
   if (selection == null) return
-
-  // 不能在 compositionStart 时删除，否则会导致 dom 更新，光标错位
-  if (selection && Range.isExpanded(selection)) {
-    Editor.deleteFragment(editor)
-  }
 
   // 在中文输入法下，浏览器的默认行为会使一些dom产生不可逆的变化
   // 比如在 Safari 中 url 后面输入，初始是 a > span > spans
@@ -116,7 +118,7 @@ export function handleCompositionEnd(e: Event, textarea: TextArea, editor: IDomE
     DomEditor.cleanExposedTexNodeInSelectionBlock(editor)
   }
 
-  // 检查拼音输入是否夸 DOM 节点了，解决 we-2021/issues/47
+  // 检查拼音输入是否夸 DOM 节点了，解决 wangEditor-v5/issues/47
   if (!IS_SAFARI) {
     setTimeout(() => {
       const { selection } = editor
