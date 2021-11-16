@@ -51,14 +51,6 @@
     </div>
 
     <div id="status"></div>
-
-    <div id="info-container">
-      <p>
-        <b>上传图片</b>（因跨域限制）请到
-        <a href="http://106.12.198.214:8882/main/examples/upload-image.html" target="_blank">测试页</a>
-        来体验。
-      </p>
-    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@latest/dist/index.min.js"></script>
@@ -68,8 +60,8 @@
     const editorConfig = { MENU_CONF: {} }
     editorConfig.placeholder = '请输入内容'
     editorConfig.MENU_CONF['uploadImage'] = {
-      server: 'http://106.12.198.214:3000/api/upload-img', // 上传图片地址
-      fieldName: 'index-fileName'
+      fieldName: 'index-fileName',
+      base64LimitKB: 10 * 1024, // 10M 以下插入 base64
     }
     editorConfig.onChange = (editor) => {
       const selectionText = editor.getSelectionText()

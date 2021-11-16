@@ -51,14 +51,6 @@
     </div>
 
     <div id="status"></div>
-
-    <div id="info-container">
-      <p>
-        <b>Upload image</b> go to
-        <a href="http://106.12.198.214:8882/main/examples/upload-image.html" target="_blank">test page</a>
-        please.
-      </p>
-    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@latest/dist/index.min.js"></script>
@@ -70,8 +62,8 @@
     const editorConfig = { MENU_CONF: {} }
     editorConfig.placeholder = 'Type here please'
     editorConfig.MENU_CONF['uploadImage'] = {
-      server: 'http://106.12.198.214:3000/api/upload-img', // upload server url
-      fieldName: 'index-fileName'
+      fieldName: 'index-fileName',
+      base64LimitKB: 10 * 1024, // less than 10M, insert base64 format
     }
     editorConfig.onChange = (editor) => {
       const selectionText = editor.getSelectionText()
