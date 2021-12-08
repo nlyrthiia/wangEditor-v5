@@ -93,7 +93,7 @@
     editorConfig.scroll = false // 禁止编辑器滚动
     editorConfig.MENU_CONF['uploadImage'] = {
       fieldName: 'like-yuque-fileName',
-      base64LimitKB: 10 * 1024 // 10M 以下插入 base64
+      base64LimitSize: 10 * 1024 * 1024 // 10M 以下插入 base64
     }
     editorConfig.onChange = (editor) => {
       // console.log('content', editor.children)

@@ -63,7 +63,7 @@
     editorConfig.placeholder = 'Type here please'
     editorConfig.MENU_CONF['uploadImage'] = {
       fieldName: 'index-fileName',
-      base64LimitKB: 10 * 1024, // less than 10M, insert base64 format
+      base64LimitSize: 10 * 1024 * 1024, // less than 10M, insert base64 format
     }
     editorConfig.onChange = (editor) => {
       const selectionText = editor.getSelectionText()

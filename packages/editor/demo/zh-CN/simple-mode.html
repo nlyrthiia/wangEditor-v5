@@ -61,7 +61,7 @@
     editorConfig.placeholder = '请输入内容'
     editorConfig.MENU_CONF['uploadImage'] = {
       fieldName: 'index-fileName',
-      base64LimitKB: 10 * 1024, // 10M 以下插入 base64
+      base64LimitSize: 10 * 1024 * 1024, // 10M 以下插入 base64
     }
     editorConfig.onChange = (editor) => {
       const selectionText = editor.getSelectionText()
