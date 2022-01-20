@@ -75,23 +75,29 @@
       selector: '#editor-text-area',
       content: window.content1,
       config: editorConfig,
-      content: [
-        { type: 'header1', children: [{ text: 'Simple mode' }] },
-        {
-          type: "numbered-list",
-          children: [
-            {
-              type: "list-item",
-              children: [ { text: "Simplify toolbar menus" } ]
-            },
-            {
-              type: "list-item",
-              children: [ { text: "Hide hover-bar when selected text" } ]
-            }
-          ]
-        },
-        { type: 'paragraph', children: [{ text: '' }] },
-      ],
+      // content: [
+      //   { type: 'header1', children: [{ text: 'Simple mode' }] },
+      //   {
+      //     type: "numbered-list",
+      //     children: [
+      //       {
+      //         type: "list-item",
+      //         children: [ { text: "Simplify toolbar menus" } ]
+      //       },
+      //       {
+      //         type: "list-item",
+      //         children: [ { text: "Hide hover-bar when selected text" } ]
+      //       }
+      //     ]
+      //   },
+      //   { type: 'paragraph', children: [{ text: '' }] },
+      // ],
+      html: `<h1>Simple mode.</h1>
+<ol>
+  <li>Simplify toolbar menus</li>
+  <li>Hide hover-bar when selected text</li>
+</ol>
+<p><br></p>`,
       mode: 'simple'
     })
     const toolbar = E.createToolbar({
