@@ -41,10 +41,10 @@ export function usePlaceholder(textarea: TextArea, editor: IDomEditor, setPlaceh
   const { placeholder } = editor.getConfig()
   if (!placeholder) return
 
-  const isEmpty = editor.isEmpty()
-  if (!isEmpty) return
-
   if (setPlaceholder) {
+    const isEmpty = editor.isEmpty()
+    if (!isEmpty) return
+
     if (textarea.$placeholder == null) {
       const $placeholder = $(`<div class="w-e-text-placeholder">${placeholder}</div>`)
       textarea.$textAreaContainer.append($placeholder)
